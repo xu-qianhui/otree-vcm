@@ -1,0 +1,34 @@
+{{ block title }}
+    Phase 2 begins
+{{ endblock }}
+
+{{ block content }}
+{{ include_sibling '_InfoBar.html' }}
+
+<div class="notice">
+    <p class="mb-2"><b>Two things change from this round on:</b></p>
+    <ol class="mb-0">
+        <li>
+            The MPCR changes from <b>{{ mpcr_phase1 }}</b> to <b>{{ mpcr }}</b>.
+            Each point contributed to the group project now pays <b>{{ mpcr }}</b> points
+            to every member of the group.
+        </li>
+        <li>
+            Groups have been <b>randomly re-formed</b>. You are now in a group of
+            {{ group_size }} with members who may differ from those in Phase 1.
+            You will stay in this new group for rounds {{ phase_start }} to {{ phase_end }}.
+        </li>
+    </ol>
+</div>
+
+<div class="vcm-card">
+    <h5>Your earnings in each round of Phase 2</h5>
+    <div class="formula">
+        Your earnings = ({{ endowment }} &minus; your contribution)
+        + {{ mpcr }} &times; (total contribution of your group)
+    </div>
+    <p class="muted mb-0">Everything else (endowment, group size, how earnings add up) stays the same.</p>
+</div>
+
+{{ next_button }}
+{{ endblock }}

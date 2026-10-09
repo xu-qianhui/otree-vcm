@@ -1,0 +1,77 @@
+{{ block title }}
+    Instructions
+{{ endblock }}
+
+{{ block content }}
+<link href="{{ static 'global/vcm.css' }}" rel="stylesheet">
+
+<div class="vcm-card">
+    <h5>Overview</h5>
+    <p>
+        This study has <b>{{ num_rounds }} rounds</b>. In every round you are in a group of
+        <b>{{ group_size }} participants</b>. You will not learn the identity of the other members
+        of your group, and they will not learn yours.
+    </p>
+    <p>
+        At the start of each round, every group member receives an endowment of
+        <b>{{ endowment }} points</b>. You decide how many of these points (any whole number from
+        0 to {{ endowment }}) to contribute to a <b>group project</b>. Points you do not contribute
+        are kept in your <b>private account</b>.
+    </p>
+</div>
+
+<div class="vcm-card">
+    <h5>How your earnings are calculated</h5>
+    <ul>
+        <li>Every point you keep in your private account earns <b>1 point</b> for you only.</li>
+        <li>
+            The group project pays every group member the total contribution of the group
+            multiplied by a number called the <b>MPCR</b> (marginal per capita return).
+            Every member receives this amount, whether or not they contributed.
+        </li>
+    </ul>
+    <div class="formula">
+        Your earnings = ({{ endowment }} &minus; your contribution)
+        + MPCR &times; (total contribution of your group)
+    </div>
+</div>
+
+<div class="vcm-card">
+    <h5>Example (MPCR = {{ mpcr_phase1 }})</h5>
+    <p>
+        Suppose you contribute {{ ex_own }} points and the other two members contribute
+        {{ ex_others }} points in total.
+    </p>
+    <table class="table breakdown mb-0">
+        <tr><td>Points kept in your private account</td><td>{{ endowment }} &minus; {{ ex_own }} = {{ ex_kept }}</td></tr>
+        <tr><td>Total contribution of the group</td><td>{{ ex_own }} + {{ ex_others }} = {{ ex_total }}</td></tr>
+        <tr><td>Your earnings from the group project</td><td>{{ mpcr_phase1 }} &times; {{ ex_total }} = {{ ex_share }}</td></tr>
+        <tr class="total"><td>Your earnings in this round</td><td>{{ ex_payoff }}</td></tr>
+    </table>
+</div>
+
+<div class="vcm-card">
+    <h5>Two phases</h5>
+    <table class="table table-compact mb-2">
+        <thead>
+            <tr><th>Phase</th><th>Rounds</th><th>MPCR</th><th>Group</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td><td>1 to {{ phase1_end }}</td><td>{{ mpcr_phase1 }}</td>
+                <td>Randomly formed in round 1, then the same members every round</td>
+            </tr>
+            <tr>
+                <td>2</td><td>{{ break_round }} to {{ num_rounds }}</td><td>{{ mpcr_phase2 }}</td>
+                <td>Randomly re-formed in round {{ break_round }}, then the same members every round</td>
+            </tr>
+        </tbody>
+    </table>
+    <p class="muted mb-0">
+        After every round you will see the total contribution of your group and your earnings.
+        Your total earnings for the study are the sum of your earnings over all {{ num_rounds }} rounds.
+    </p>
+</div>
+
+{{ next_button }}
+{{ endblock }}

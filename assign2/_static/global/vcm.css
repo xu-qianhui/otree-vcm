@@ -1,0 +1,106 @@
+/* Shared layout for the VCM app */
+
+.otree-title {
+    font-size: 1.6rem;
+    margin-bottom: 0.75rem;
+}
+
+/* Status bar: always-visible game parameters */
+.info-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+}
+
+.info-item {
+    flex: 1 1 8rem;
+    background: #f4f6f8;
+    border: 1px solid #dde2e7;
+    border-radius: 6px;
+    padding: 0.45rem 0.75rem;
+}
+
+.info-item .label {
+    display: block;
+    font-size: 0.75rem;
+    color: #5b6670;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.info-item .value {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #1f2933;
+}
+
+.info-item.highlight {
+    background: #e8f1fb;
+    border-color: #9cc2ea;
+}
+
+/* Cards */
+.vcm-card {
+    border: 1px solid #dde2e7;
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.25rem;
+    background: #fff;
+}
+
+.vcm-card h5 {
+    margin-bottom: 0.75rem;
+}
+
+.formula {
+    font-size: 1.1rem;
+    text-align: center;
+    background: #fafbfc;
+    border: 1px dashed #c4ccd4;
+    border-radius: 6px;
+    padding: 0.6rem;
+    margin: 0.75rem 0;
+}
+
+/* Payoff breakdown table */
+.breakdown td:last-child,
+.breakdown th:last-child {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+.breakdown tr.total td {
+    font-weight: 700;
+    border-top: 2px solid #1f2933;
+}
+
+.table-compact td,
+.table-compact th {
+    padding: 0.3rem 0.5rem;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+}
+
+/* Calculator */
+.calc-output {
+    font-size: 1.05rem;
+}
+
+.calc-output .num {
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+}
+
+.notice {
+    border-left: 4px solid #d9822b;
+    background: #fff7ed;
+    padding: 0.75rem 1rem;
+    border-radius: 4px;
+    margin-bottom: 1.25rem;
+}
+
+.muted {
+    color: #5b6670;
+    font-size: 0.9rem;
+}

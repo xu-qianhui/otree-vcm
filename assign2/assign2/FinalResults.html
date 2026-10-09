@@ -1,0 +1,38 @@
+{{ block title }}
+    Summary of all rounds
+{{ endblock }}
+
+{{ block content }}
+<link href="{{ static 'global/vcm.css' }}" rel="stylesheet">
+
+<div class="vcm-card">
+    <table class="table table-compact mb-0">
+        <thead>
+            <tr>
+                <th>Round</th>
+                <th>Phase</th>
+                <th>MPCR</th>
+                <th>Your contribution</th>
+                <th>Group total contribution</th>
+                <th>Your earnings</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{ for row in rounds }}
+            <tr>
+                <td>{{ row.round_number }}</td>
+                <td>{{ row.phase }}</td>
+                <td>{{ row.mpcr }}</td>
+                <td>{{ row.contribution }}</td>
+                <td>{{ row.total_contribution }}</td>
+                <td>{{ row.payoff }}</td>
+            </tr>
+            {{ endfor }}
+        </tbody>
+    </table>
+</div>
+
+<div class="vcm-card">
+    <h5 class="mb-0">Total earnings over {{ num_rounds }} rounds: {{ total_payoff }}</h5>
+</div>
+{{ endblock }}

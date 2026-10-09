@@ -1,0 +1,114 @@
+{{ block title }}
+    Your contribution decision
+{{ endblock }}
+
+{{ block content }}
+{{ include_sibling '_InfoBar.html' }}
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="vcm-card">
+            <h5>Decide</h5>
+            <p>
+                You have <b>{{ endowment }} points</b>. Points you keep earn 1 point each for you.
+                Each point contributed to the group project earns <b>{{ mpcr }}</b> points for
+                <b>every</b> member of your group.
+            </p>
+            <div class="formula">
+                Earnings = ({{ endowment }} &minus; contribution) + {{ mpcr }} &times; group total
+            </div>
+            {{ formfield 'contribution' }}
+            {{ next_button }}
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="vcm-card">
+            <h5>Earnings calculator</h5>
+            <p class="muted">
+                Try different numbers. This tool does not submit anything; only the field on the
+                left counts.
+            </p>
+            <label for="calc-own" class="form-label">Your contribution: <b id="calc-own-val"></b></label>
+            <input type="range" class="form-range" id="calc-own" min="0">
+            <label for="calc-others" class="form-label">Total contribution of the other members: <b id="calc-others-val"></b></label>
+            <input type="range" class="form-range" id="calc-others" min="0">
+            <div class="calc-output mt-2">
+                Kept: <span class="num" id="calc-kept"></span>
+                &nbsp;+&nbsp; From project: <span class="num" id="calc-share"></span>
+                &nbsp;=&nbsp; <b>Your earnings: <span class="num" id="calc-payoff"></span></b>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="vcm-card">
+    <h5>Previous rounds with your current group</h5>
+    {{ if history }}
+    <table class="table table-compact mb-0">
+        <thead>
+            <tr>
+                <th>Round</th>
+                <th>Your contribution</th>
+                <th>Group total contribution</th>
+                <th>Your earnings</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{ for row in history }}
+            <tr>
+                <td>{{ row.round_number }}</td>
+                <td>{{ row.contribution }}</td>
+                <td>{{ row.total_contribution }}</td>
+                <td>{{ row.payoff }}</td>
+            </tr>
+            {{ endfor }}
+        </tbody>
+    </table>
+    {{ else }}
+    <p class="muted mb-0">This is the first round with your current group.</p>
+    {{ endif }}
+</div>
+{{ endblock }}
+
+{{ block scripts }}
+<script>
+    (function () {
+        const E = js_vars.endowment;
+        const a = js_vars.mpcr;
+        const nOthers = js_vars.group_size - 1;
+        const own = document.getElementById('calc-own');
+        const others = document.getElementById('calc-others');
+        const field = document.getElementById('id_contribution');
+
+        own.max = E;
+        others.max = E * nOthers;
+        own.value = 0;
+        others.value = 0;
+
+        const fmt = (x) => (Math.round(x * 10) / 10).toString();
+
+        function update() {
+            const c = Number(own.value);
+            const o = Number(others.value);
+            document.getElementById('calc-own-val').textContent = c;
+            document.getElementById('calc-others-val').textContent = o;
+            document.getElementById('calc-kept').textContent = fmt(E - c);
+            document.getElementById('calc-share').textContent = fmt(a * (c + o));
+            document.getElementById('calc-payoff').textContent = fmt(E - c + a * (c + o));
+        }
+
+        // Typing a valid number in the decision field moves the calculator slider
+        field.addEventListener('input', function () {
+            const v = Number(field.value);
+            if (field.value !== '' && Number.isInteger(v) && v >= 0 && v <= E) {
+                own.value = v;
+                update();
+            }
+        });
+        own.addEventListener('input', update);
+        others.addEventListener('input', update);
+        update();
+    })();
+</script>
+{{ endblock }}

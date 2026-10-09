@@ -1,0 +1,39 @@
+{{ block title }}
+    Results of round {{ player.round_number }}
+{{ endblock }}
+
+{{ block content }}
+{{ include_sibling '_InfoBar.html' }}
+
+<div class="vcm-card">
+    <h5>Your group this round</h5>
+    <table class="table breakdown mb-0">
+        <tr><td>Your contribution</td><td>{{ player.contribution }}</td></tr>
+        {{ for c in others_contributions }}
+        <tr><td>Contribution of another group member</td><td>{{ c }}</td></tr>
+        {{ endfor }}
+        <tr class="total"><td>Total contribution of your group</td><td>{{ group.total_contribution }}</td></tr>
+    </table>
+</div>
+
+<div class="vcm-card">
+    <h5>Your earnings this round</h5>
+    <table class="table breakdown mb-0">
+        <tr><td>Kept in your private account ({{ endowment }} &minus; {{ player.contribution }})</td><td>{{ endowment_kept }}</td></tr>
+        <tr><td>From the group project ({{ mpcr }} &times; {{ group.total_contribution }})</td><td>{{ group.individual_share }}</td></tr>
+        <tr class="total"><td>Your earnings</td><td>{{ player.payoff }}</td></tr>
+    </table>
+</div>
+
+{{ if is_last_before_break }}
+<div class="notice">
+    <b>Next round:</b> Phase 2 begins. The MPCR changes to {{ mpcr_phase2 }} and groups are randomly re-formed.
+</div>
+{{ elif is_last_round }}
+<div class="notice">This was the last round. Next you will see a summary of all rounds.</div>
+{{ else }}
+<p class="muted">Next round: same group, same MPCR ({{ mpcr }}).</p>
+{{ endif }}
+
+{{ next_button }}
+{{ endblock }}

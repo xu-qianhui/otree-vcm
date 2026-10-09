@@ -1,0 +1,23 @@
+<link href="{{ static 'global/vcm.css' }}" rel="stylesheet">
+<div class="info-bar">
+    <div class="info-item">
+        <span class="label">Round</span>
+        <span class="value">{{ player.round_number }} of {{ num_rounds }}</span>
+    </div>
+    <div class="info-item">
+        <span class="label">Phase</span>
+        <span class="value">{{ phase }} (rounds {{ phase_start }} to {{ phase_end }})</span>
+    </div>
+    <div class="info-item highlight">
+        <span class="label">MPCR</span>
+        <span class="value">{{ mpcr }}</span>
+    </div>
+    <div class="info-item">
+        <span class="label">Endowment</span>
+        <span class="value">{{ endowment }} points</span>
+    </div>
+    <div class="info-item">
+        <span class="label">Group size</span>
+        <span class="value">{{ group_size }} players</span>
+    </div>
+</div>

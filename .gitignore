@@ -1,0 +1,11 @@
+.venv/
+venv/
+.idea/
+__pycache__/
+*.py[cod]
+*.sqlite3
+.DS_Store
+staticfiles/
+_static_root/
+__temp*
+*.otreezip
